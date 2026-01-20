@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
     return Scaffold(
+      backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
           "PLAYER PROFILE",
           style: TextStyle(fontFamily: 'PixelFont'),
@@ -31,22 +39,15 @@ class ProfileScreen extends StatelessWidget {
 
           return Padding(
             padding: const EdgeInsets.all(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                _profileRow("EMAIL", data['email']),
-                _profileRow("LEVEL", data['level'].toString()),
-                _profileRow("XP", data['xp'].toString()),
-                _profileRow("COINS", data['coins'].toString()),
-                _profileRow(
-                  "TOTAL FOCUS TIME",
-                  "${data['totalFocusTime']} mins",
-                ),
-                _profileRow(
-                  "SESSIONS COMPLETED",
-                  data['totalSessions'].toString(),
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _profileRow("EMAIL", data['email'] ?? "Not set", false),
+                  _profileRow("USERNAME", data['username'] ?? "Not set", true, user.uid),
+                  _profileRow("PHONE", data['phone'] ?? "Not set", true, user.uid),
+                ],
+              ),
             ),
           );
         },
@@ -54,14 +55,21 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _profileRow(String title, String value) {
+  /// PROFILE ROW WIDGET
+  /// Displays a profile info row with optional editing capability
+  Widget _profileRow(
+    String title,
+    String value,
+    bool isEditable, [
+    String? uid,
+  ]) {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: const Color(0xFF161A2D),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: const Color(0xFF7B4DFF)),
+        color: const Color(0xFF440566),
+        border: Border.all(color: Colors.white, width: 3),
+        borderRadius: BorderRadius.zero,
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -73,12 +81,102 @@ class ProfileScreen extends StatelessWidget {
               color: Colors.white70,
             ),
           ),
-          Text(
-            value,
-            style: const TextStyle(
+          if (isEditable)
+            GestureDetector(
+              onTap: () => _editField(title, value, uid!),
+              child: Text(
+                value,
+                style: const TextStyle(
+                  fontFamily: 'PixelFont',
+                  color: Color(0xFF4DEEFF),
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
+              ),
+            )
+          else
+            Text(
+              value,
+              style: const TextStyle(
+                fontFamily: 'PixelFont',
+                color: Color(0xFF4DEEFF),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        ],
+      ),
+    );
+  }
+
+  /// EDIT FIELD DIALOG
+  /// Allows editing of username and phone number
+  void _editField(String fieldName, String currentValue, String uid) {
+    final controller = TextEditingController(text: currentValue);
+    final fieldKey = fieldName.toLowerCase();
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: const Color(0xFF0B0E1A),
+        title: Text(
+          "EDIT $fieldName",
+          style: const TextStyle(fontFamily: 'PixelFont'),
+        ),
+        content: TextField(
+          controller: controller,
+          style: const TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+          decoration: InputDecoration(
+            hintText: fieldName,
+            hintStyle: const TextStyle(
               fontFamily: 'PixelFont',
-              color: Color(0xFF4DEEFF),
-              fontWeight: FontWeight.bold,
+              color: Colors.white70,
+            ),
+            filled: true,
+            fillColor: const Color(0xFF440566),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Colors.white,
+                width: 2,
+              ),
+              borderRadius: BorderRadius.zero,
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0xFF4DEEFF),
+                width: 2,
+              ),
+              borderRadius: BorderRadius.zero,
+            ),
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text(
+              "CANCEL",
+              style: TextStyle(
+                fontFamily: 'PixelFont',
+                color: Colors.white,
+              ),
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(uid)
+                  .update({fieldKey: controller.text});
+
+              if (!context.mounted) return;
+              Navigator.pop(context);
+              setState(() {});
+            },
+            child: const Text(
+              "SAVE",
+              style: TextStyle(
+                fontFamily: 'PixelFont',
+                color: Colors.white,
+              ),
             ),
           ),
         ],

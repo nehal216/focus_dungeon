@@ -11,14 +11,13 @@ class SignupScreen extends StatelessWidget {
     final passwordController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0B0E1A),
+      backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
           "CREATE ACCOUNT",
-          style: TextStyle(
-            fontFamily: 'PixelFont',
-            fontSize: 14,
-          ),
+          style: TextStyle(fontFamily: 'PixelFont'),
         ),
         centerTitle: true,
       ),
@@ -27,52 +26,13 @@ class SignupScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /// EMAIL
-            TextField(
-              controller: emailController,
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                color: Colors.white,
-              ),
-              decoration: InputDecoration(
-                labelText: "EMAIL",
-                labelStyle: const TextStyle(
-                  fontFamily: 'PixelFont',
-                  color: Colors.grey,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.purpleAccent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyanAccent),
-                ),
-              ),
-            ),
+            /// EMAIL FIELD
+            _pixelField("EMAIL", emailController),
 
             const SizedBox(height: 16),
 
-            /// PASSWORD
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                color: Colors.white,
-              ),
-              decoration: InputDecoration(
-                labelText: "PASSWORD",
-                labelStyle: const TextStyle(
-                  fontFamily: 'PixelFont',
-                  color: Colors.grey,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.purpleAccent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyanAccent),
-                ),
-              ),
-            ),
+            /// PASSWORD FIELD
+            _pixelField("PASSWORD", passwordController, obscure: true),
 
             const SizedBox(height: 30),
 
@@ -82,7 +42,11 @@ class SignupScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF7B4DFF),
+                  backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+                  side: const BorderSide(color: Colors.white, width: 3),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
                 ),
                 onPressed: () async {
                   final authService = AuthService();
@@ -118,13 +82,53 @@ class SignupScreen extends StatelessWidget {
                   "CREATE ACCOUNT",
                   style: TextStyle(
                     fontFamily: 'PixelFont',
-                    fontSize: 12,
-                    letterSpacing: 1.2,
+                    color: Colors.white,
+                    letterSpacing: 1.5,
                   ),
                 ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// PIXEL STYLE INPUT FIELD
+  /// Builds a reusable text field with pixel art styling
+  Widget _pixelField(
+    String label,
+    TextEditingController controller, {
+    bool obscure = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscure,
+      style: const TextStyle(
+        fontFamily: 'PixelFont',
+        color: Colors.white,
+      ),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(
+          fontFamily: 'PixelFont',
+          color: Colors.white70,
+        ),
+        filled: true,
+        fillColor: const Color(0xFF440566),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 3,
+          ),
+          borderRadius: BorderRadius.zero, // pixel look
+        ),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xFF4DEEFF),
+            width: 3,
+          ),
+          borderRadius: BorderRadius.zero,
         ),
       ),
     );

@@ -132,7 +132,10 @@ class _DungeonScreenState extends State<DungeonScreen> {
             },
             child: const Text(
               "RETURN",
-              style: TextStyle(fontFamily: 'PixelFont'),
+              style: TextStyle(
+                fontFamily: 'PixelFont',
+                color: Colors.white,
+              ),
             ),
           ),
         ],
@@ -149,22 +152,21 @@ class _DungeonScreenState extends State<DungeonScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text(
           widget.dungeonName,
-          style: const TextStyle(
-            fontFamily: 'PixelFont',
-            letterSpacing: 1.5,
-          ),
+          style: const TextStyle(fontFamily: 'PixelFont'),
         ),
         centerTitle: true,
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
+      body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-
             const Text(
               "TIME REMAINING",
               style: TextStyle(
@@ -173,64 +175,80 @@ class _DungeonScreenState extends State<DungeonScreen> {
                 color: Colors.white70,
               ),
             ),
-
-            const SizedBox(height: 16),
-
+            const SizedBox(height: 20),
             /// TIMER
             Text(
               formatTime(secondsLeft),
               style: const TextStyle(
                 fontFamily: 'PixelFont',
-                fontSize: 44,
+                fontSize: 72,
                 color: Color(0xFF4DEEFF),
                 letterSpacing: 2,
               ),
             ),
-
             const SizedBox(height: 40),
-
             /// BUTTONS
             if (!isRunning)
               SizedBox(
-                width: 220,
-                height: 50,
+                width: 240,
+                height: 55,
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xFF440566),
+                    side: const BorderSide(color: Colors.white, width: 3),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
+                  ),
                   onPressed: startDungeon,
                   child: const Text(
                     "START SESSION",
-                    style: TextStyle(fontFamily: 'PixelFont'),
+                    style: TextStyle(
+                      fontFamily: 'PixelFont',
+                      color: Colors.white,
+                      letterSpacing: 1.5,
+                    ),
                   ),
                 ),
               )
             else
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
-                    width: 120,
-                    height: 45,
+                    width: 130,
+                    height: 50,
                     child: ElevatedButton(
                       onPressed: isPaused ? resumeDungeon : pauseDungeon,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
+                        side: const BorderSide(color: Colors.white, width: 2),
                       ),
                       child: Text(
                         isPaused ? "RESUME" : "PAUSE",
-                        style: const TextStyle(fontFamily: 'PixelFont'),
+                        style: const TextStyle(
+                          fontFamily: 'PixelFont',
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
+                  const SizedBox(width: 20),
                   SizedBox(
-                    width: 120,
-                    height: 45,
+                    width: 130,
+                    height: 50,
                     child: ElevatedButton(
                       onPressed: stopDungeon,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.redAccent,
+                        side: const BorderSide(color: Colors.white, width: 2),
                       ),
                       child: const Text(
                         "STOP",
-                        style: TextStyle(fontFamily: 'PixelFont'),
+                        style: TextStyle(
+                          fontFamily: 'PixelFont',
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),

@@ -3,19 +3,41 @@ import '../services/auth_service.dart';
 import 'signup_screen.dart';
 import 'home_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _passwordVisible = false;
+  late TextEditingController emailController;
+  late TextEditingController passwordController;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
 
     return Scaffold(
       backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
+        automaticallyImplyLeading: false,
         title: const Text(
           "LOGIN",
           style: TextStyle(fontFamily: 'PixelFont'),
@@ -34,7 +56,17 @@ class LoginScreen extends StatelessWidget {
             const SizedBox(height: 16),
 
             /// PASSWORD FIELD
-            _pixelField("PASSWORD", passwordController, obscure: true),
+            _pixelField(
+              "PASSWORD",
+              passwordController,
+              obscure: !_passwordVisible,
+              isPassword: true,
+              onVisibilityToggle: () {
+                setState(() {
+                  _passwordVisible = !_passwordVisible;
+                });
+              },
+            ),
 
             const SizedBox(height: 30),
 
@@ -44,8 +76,8 @@ class LoginScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.black,
-                  side: const BorderSide(color: Colors.white),
+                  backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+                  side: const BorderSide(color: Colors.white, width: 3),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(0),
                   ),
@@ -100,13 +132,31 @@ class LoginScreen extends StatelessWidget {
                     backgroundColor: const Color(0xFF0B0E1A),
                     title: const Text(
                       "RESET PASSWORD",
-                      style: TextStyle(fontFamily: 'PixelFont'),
+                      style: TextStyle(fontFamily: 'PixelFont', color: Colors.white),
                     ),
                     content: TextField(
                       controller: resetController,
-                      style: const TextStyle(fontFamily: 'PixelFont'),
-                      decoration: const InputDecoration(
-                        hintText: "Enter your email",
+                      style: const TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+                      decoration: InputDecoration(
+                        labelText: "EMAIL",
+                        labelStyle: const TextStyle(
+                          fontFamily: 'PixelFont',
+                          color: Colors.white70,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0xFF7B4DFF),
+                            width: 5,
+                          ),
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: const BorderSide(
+                            color: Color(0xFF4DEEFF),
+                            width: 5,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
                       ),
                     ),
                     actions: [
@@ -173,11 +223,14 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-  /// PIXEL STYLE INPUT
+  /// PIXEL STYLE INPUT FIELD
+  /// Builds a reusable text field with pixel art styling
   Widget _pixelField(
     String label,
     TextEditingController controller, {
     bool obscure = false,
+    bool isPassword = false,
+    VoidCallback? onVisibilityToggle,
   }) {
     return TextField(
       controller: controller,
@@ -193,15 +246,30 @@ class LoginScreen extends StatelessWidget {
           color: Colors.white70,
         ),
         filled: true,
-        fillColor: const Color(0xFF5A2DAA),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.white),
-          borderRadius: BorderRadius.circular(0),
+        fillColor: const Color(0xFF440566),
+        enabledBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Colors.white,
+            width: 3,
+          ),
+          borderRadius: BorderRadius.zero, // pixel look
         ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.cyanAccent),
-          borderRadius: BorderRadius.circular(0),
+        focusedBorder: const OutlineInputBorder(
+          borderSide: BorderSide(
+            color: Color(0xFF4DEEFF),
+            width: 3,
+          ),
+          borderRadius: BorderRadius.zero,
         ),
+        suffixIcon: isPassword
+            ? IconButton(
+                icon: Icon(
+                  obscure ? Icons.visibility_off : Icons.visibility,
+                  color: const Color(0xFF4DEEFF),
+                ),
+                onPressed: onVisibilityToggle,
+              )
+            : null,
       ),
     );
   }

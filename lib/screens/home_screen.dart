@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dungeon_screen.dart';
 import 'login_screen.dart';
 import 'profile_screen.dart';
+import 'stats_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -46,23 +47,22 @@ class _HomeScreenState extends State<HomeScreen> {
     final data = userData!.data() as Map<String, dynamic>;
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0B0E1A),
+      backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: const Icon(Icons.menu),
+          onPressed: _showMenu,
+        ),
         title: const Text(
           "FOCUS DUNGEON",
           style: TextStyle(
             fontFamily: 'PixelFont',
             letterSpacing: 2,
-            fontSize: 14,
           ),
         ),
         centerTitle: true,
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.logout),
-            onPressed: _logout,
-          ),
-        ],
       ),
 
       body: Padding(
@@ -72,47 +72,30 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
 
             /// HEADER
-            const Text(
-              "WELCOME BACK",
-              style: TextStyle(
+            Text(
+              "WELCOME BACK, ${(data['username'] ?? 'PLAYER').toUpperCase()}",
+              style: const TextStyle(
                 fontFamily: 'PixelFont',
                 fontSize: 20,
                 letterSpacing: 1.5,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              data['email'],
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                color: Colors.grey,
-                fontSize: 12,
+                color: Colors.white,
               ),
             ),
 
             const SizedBox(height: 14),
 
-            /// PROFILE BUTTON
-            _pixelButton(
-              "👤 VIEW PROFILE",
-              () => Navigator.push(
-                context,
-                MaterialPageRoute(builder: (_) => const ProfileScreen()),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            /// STATS
+            /// STATS ICONS ROW
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _statCard("LEVEL", data['level'], Icons.trending_up),
-                _xpBar(data['xp'], data['level']),
-                _statCard("COINS", data['coins'], Icons.monetization_on),
+                _statIcon("🔥", "${data['streak'] ?? 0}", "STREAK"),
+                _statIcon("🪙", "${data['coins'] ?? 0}", "COINS"),
+                _statIcon("⭐", "${data['xp'] ?? 0}", "XP"),
+                _statIcon("🎖️", "${data['level'] ?? 1}", "LEVEL"),
               ],
             ),
 
-            const SizedBox(height: 28),
+            const SizedBox(height: 20),
 
             /// DUNGEONS
             _pixelButton("🟢 EASY DUNGEON", () => _startDungeon(60, 10, 5)),
@@ -127,16 +110,61 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // ───────────────────── WIDGETS ─────────────────────
 
+  /// STAT ICON WIDGET
+  /// Displays a stat with icon, value and label in a pixel-styled box
+  Widget _statIcon(String emoji, String value, String label) {
+    return Expanded(
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        margin: const EdgeInsets.symmetric(horizontal: 4),
+        decoration: BoxDecoration(
+          color: const Color(0xFF440566),
+          border: Border.all(color: Colors.white, width: 2),
+          borderRadius: BorderRadius.zero,
+        ),
+        child: Column(
+          children: [
+            Text(
+              emoji,
+              style: const TextStyle(fontSize: 20),
+            ),
+            const SizedBox(height: 4),
+            Text(
+              value,
+              style: const TextStyle(
+                fontFamily: 'PixelFont',
+                color: Color(0xFF4DEEFF),
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: const TextStyle(
+                fontFamily: 'PixelFont',
+                color: Colors.white70,
+                fontSize: 9,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  /// PIXEL STYLE BUTTON
+  /// Builds a reusable pixel-styled button with consistent theming
   Widget _pixelButton(String text, VoidCallback onTap) {
     return Container(
       width: double.infinity,
       margin: const EdgeInsets.only(bottom: 12),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xFF1C1F3A),
-          side: const BorderSide(color: Color(0xFF7B4DFF)),
+          backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+          side: const BorderSide(color: Colors.white, width: 3),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+            borderRadius: BorderRadius.circular(0),
           ),
         ),
         onPressed: onTap,
@@ -146,7 +174,8 @@ class _HomeScreenState extends State<HomeScreen> {
             text,
             style: const TextStyle(
               fontFamily: 'PixelFont',
-              letterSpacing: 1.2,
+              color: Colors.white,
+              letterSpacing: 1.5,
             ),
           ),
         ),
@@ -154,80 +183,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _statCard(String title, int value, IconData icon) {
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 6),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: const Color(0xFF161A2D),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: const Color(0xFF7B4DFF), width: 2),
-        ),
-        child: Column(
-          children: [
-            Icon(icon, color: const Color(0xFF4DEEFF)),
-            const SizedBox(height: 6),
-            Text(
-              value.toString(),
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                color: Color(0xFF4DEEFF),
-                fontSize: 16,
-              ),
-            ),
-            Text(
-              title,
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                fontSize: 10,
-                color: Color(0xFFB0B0C3),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _xpBar(int xp, int level) {
-    final maxXp = level * 50;
-    final progress = xp / maxXp;
-
-    return Expanded(
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 6),
-        padding: const EdgeInsets.all(14),
-        decoration: BoxDecoration(
-          color: const Color(0xFF161A2D),
-          borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: const Color(0xFF7B4DFF), width: 2),
-        ),
-        child: Column(
-          children: [
-            const Text("XP",
-                style: TextStyle(fontFamily: 'PixelFont', fontSize: 10)),
-            const SizedBox(height: 6),
-            LinearProgressIndicator(
-              value: progress,
-              minHeight: 8,
-              backgroundColor: Colors.black,
-              color: const Color(0xFF4DEEFF),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              "$xp / $maxXp",
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                fontSize: 11,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
+  /// CUSTOM SESSION BUTTON
+  /// Opens a dialog to create a custom focus session
   Widget _customSessionButton() {
     final controller = TextEditingController();
 
@@ -235,22 +192,51 @@ class _HomeScreenState extends State<HomeScreen> {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
-          backgroundColor: const Color(0xFF0B0E1A),
+          backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(0),
+            side: const BorderSide(color: Colors.white, width: 3),
+          ),
           title: const Text("CUSTOM SESSION",
-              style: TextStyle(fontFamily: 'PixelFont')),
+              style: TextStyle(fontFamily: 'PixelFont',color: Colors.white)),
           content: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            style: const TextStyle(fontFamily: 'PixelFont'),
-            decoration: const InputDecoration(
+            style: const TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+            decoration: InputDecoration(
               hintText: "Minutes",
+              hintStyle: const TextStyle(
+                fontFamily: 'PixelFont',
+                color: Colors.white70,
+              ),
+              filled: true,
+              fillColor: const Color(0xFF440566),
+              enabledBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Colors.white,
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.zero,
+              ),
+              focusedBorder: const OutlineInputBorder(
+                borderSide: BorderSide(
+                  color: Color(0xFF4DEEFF),
+                  width: 2,
+                ),
+                borderRadius: BorderRadius.zero,
+              ),
             ),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("CANCEL",
-                  style: TextStyle(fontFamily: 'PixelFont')),
+              child: const Text(
+                "CANCEL",
+                style: TextStyle(
+                  fontFamily: 'PixelFont',
+                  color: Colors.white,
+                ),
+              ),
             ),
             TextButton(
               onPressed: () {
@@ -271,13 +257,76 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 );
               },
-              child:
-                  const Text("START", style: TextStyle(fontFamily: 'PixelFont')),
+              child: const Text(
+                "START",
+                style: TextStyle(
+                  fontFamily: 'PixelFont',
+                  color: Colors.white,
+                ),
+              ),
             ),
           ],
         ),
       );
     });
+  }
+
+  /// MENU POPUP
+  /// Shows menu with Profile and Logout options
+  void _showMenu() {
+    showMenu<void>(
+      context: context,
+      position: const RelativeRect.fromLTRB(0, 56, 0, 0),
+      color: const Color(0xFF440566),
+      shape: const RoundedRectangleBorder(
+        side: BorderSide(color: Colors.white, width: 2),
+        borderRadius: BorderRadius.zero,
+      ),
+      items: [
+        PopupMenuItem<void>(
+          child: const Text(
+            "PROFILE",
+            style: TextStyle(
+              fontFamily: 'PixelFont',
+              color: Colors.white,
+            ),
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const ProfileScreen()),
+            );
+          },
+        ),
+        const PopupMenuDivider(height: 8),
+        PopupMenuItem<void>(
+          child: const Text(
+            "VIEW STATS",
+            style: TextStyle(
+              fontFamily: 'PixelFont',
+              color: Colors.white,
+            ),
+          ),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const StatsScreen()),
+            );
+          },
+        ),
+        const PopupMenuDivider(height: 8),
+        PopupMenuItem<void>(
+          onTap: _logout,
+          child: const Text(
+            "LOG OUT",
+            style: TextStyle(
+              fontFamily: 'PixelFont',
+              color: Colors.red,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 
   void _startDungeon(int time, int xp, int coins) {
@@ -294,18 +343,35 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  /// LOGOUT CONFIRMATION
+  /// Shows a dialog to confirm logout action
   void _logout() {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        backgroundColor: const Color(0xFF0B0E1A),
-        title:
-            const Text("LOG OUT?", style: TextStyle(fontFamily: 'PixelFont')),
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+          side: const BorderSide(color: Colors.white, width: 3),
+        ),
+        title: const Text(
+          "Are you sure you want to log out?",
+          style: TextStyle(
+            fontSize:16,
+            fontFamily: 'PixelFont',
+            color: Colors.white,
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context),
-            child:
-                const Text("CANCEL", style: TextStyle(fontFamily: 'PixelFont')),
+            child: const Text(
+              "CANCEL",
+              style: TextStyle(
+                fontFamily: 'PixelFont',
+                color: Colors.white,
+              ),
+            ),
           ),
           TextButton(
             onPressed: () async {
@@ -316,8 +382,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 MaterialPageRoute(builder: (_) => const LoginScreen()),
               );
             },
-            child: const Text("LOG OUT",
-                style: TextStyle(fontFamily: 'PixelFont', color: Colors.red)),
+            child: const Text(
+              "LOG OUT",
+              style: TextStyle(
+                fontFamily: 'PixelFont',
+                color: Colors.red,
+              ),
+            ),
           ),
         ],
       ),

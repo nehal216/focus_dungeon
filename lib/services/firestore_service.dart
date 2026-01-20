@@ -9,11 +9,14 @@ class FirestoreService {
   }) async {
     await _db.collection('users').doc(uid).set({
       'email': email,
+      'username': '',
+      'phone': '',
       'level': 1,
       'xp': 0,
       'coins': 0,
-      'totalFocusTime':0,
-      'totalSessions':0,
+      'streak': 0,
+      'totalFocusTime': 0,
+      'totalSessions': 0,
       'createdAt': FieldValue.serverTimestamp(),
     });
   }
