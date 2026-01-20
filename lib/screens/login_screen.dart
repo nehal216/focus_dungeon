@@ -12,14 +12,13 @@ class LoginScreen extends StatelessWidget {
     final passwordController = TextEditingController();
 
     return Scaffold(
-      backgroundColor: const Color(0xFF0B0E1A),
+      backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: const Text(
           "LOGIN",
-          style: TextStyle(
-            fontFamily: 'PixelFont',
-            fontSize: 14,
-          ),
+          style: TextStyle(fontFamily: 'PixelFont'),
         ),
         centerTitle: true,
       ),
@@ -28,52 +27,14 @@ class LoginScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /// EMAIL
-            TextField(
-              controller: emailController,
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                color: Colors.white,
-              ),
-              decoration: InputDecoration(
-                labelText: "EMAIL",
-                labelStyle: const TextStyle(
-                  fontFamily: 'PixelFont',
-                  color: Colors.grey,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.purpleAccent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyanAccent),
-                ),
-              ),
-            ),
+
+            /// EMAIL FIELD
+            _pixelField("EMAIL", emailController),
 
             const SizedBox(height: 16),
 
-            /// PASSWORD
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              style: const TextStyle(
-                fontFamily: 'PixelFont',
-                color: Colors.white,
-              ),
-              decoration: InputDecoration(
-                labelText: "PASSWORD",
-                labelStyle: const TextStyle(
-                  fontFamily: 'PixelFont',
-                  color: Colors.grey,
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.purpleAccent),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.cyanAccent),
-                ),
-              ),
-            ),
+            /// PASSWORD FIELD
+            _pixelField("PASSWORD", passwordController, obscure: true),
 
             const SizedBox(height: 30),
 
@@ -83,13 +44,15 @@ class LoginScreen extends StatelessWidget {
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF7B4DFF),
+                  backgroundColor: Colors.black,
+                  side: const BorderSide(color: Colors.white),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
                 ),
                 onPressed: () async {
-                  final authService = AuthService();
-
                   try {
-                    await authService.login(
+                    await AuthService().login(
                       emailController.text.trim(),
                       passwordController.text.trim(),
                     );
@@ -117,68 +80,72 @@ class LoginScreen extends StatelessWidget {
                   "LOGIN",
                   style: TextStyle(
                     fontFamily: 'PixelFont',
-                    fontSize: 12,
-                    letterSpacing: 1.2,
+                    color: Colors.white,
+                    letterSpacing: 1.5,
                   ),
                 ),
               ),
             ),
 
-            const SizedBox(height: 12),
+            const SizedBox(height: 16),
 
             /// FORGOT PASSWORD
             TextButton(
               onPressed: () {
+                final resetController = TextEditingController();
+
                 showDialog(
                   context: context,
-                  builder: (context) {
-                    final resetController = TextEditingController();
-
-                    return AlertDialog(
-                      title: const Text(
-                        "RESET PASSWORD",
-                        style: TextStyle(fontFamily: 'PixelFont'),
+                  builder: (_) => AlertDialog(
+                    backgroundColor: const Color(0xFF0B0E1A),
+                    title: const Text(
+                      "RESET PASSWORD",
+                      style: TextStyle(fontFamily: 'PixelFont'),
+                    ),
+                    content: TextField(
+                      controller: resetController,
+                      style: const TextStyle(fontFamily: 'PixelFont'),
+                      decoration: const InputDecoration(
+                        hintText: "Enter your email",
                       ),
-                      content: TextField(
-                        controller: resetController,
-                        style: const TextStyle(fontFamily: 'PixelFont'),
-                        decoration: const InputDecoration(
-                          hintText: "Enter your email",
-                        ),
-                      ),
-                      actions: [
-                        TextButton(
-                          onPressed: () async {
-                            await AuthService()
-                                .resetPassword(resetController.text.trim());
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () async {
+                          await AuthService()
+                              .resetPassword(resetController.text.trim());
 
-                            if (!context.mounted) return;
+                          if (!context.mounted) return;
+                          Navigator.pop(context);
 
-                            Navigator.pop(context);
-
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  "Reset link sent to email",
-                                  style:
-                                      TextStyle(fontFamily: 'PixelFont'),
-                                ),
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                "Reset link sent",
+                                style:
+                                    TextStyle(fontFamily: 'PixelFont'),
                               ),
-                            );
-                          },
-                          child: const Text(
-                            "SEND",
-                            style: TextStyle(fontFamily: 'PixelFont'),
+                            ),
+                          );
+                        },
+                        child: const Text(
+                          "SEND",
+                          style: TextStyle(
+                            fontFamily: 'PixelFont',
+                            color: Colors.white,
                           ),
                         ),
-                      ],
-                    );
-                  },
+                      ),
+                    ],
+                  ),
                 );
               },
               child: const Text(
                 "Forgot Password?",
-                style: TextStyle(fontFamily: 'PixelFont'),
+                style: TextStyle(
+                  fontFamily: 'PixelFont',
+                  color: Colors.white,
+                ),
               ),
             ),
 
@@ -194,10 +161,46 @@ class LoginScreen extends StatelessWidget {
               },
               child: const Text(
                 "Don't have an account? Sign up",
-                style: TextStyle(fontFamily: 'PixelFont'),
+                style: TextStyle(
+                  fontFamily: 'PixelFont',
+                  color: Colors.white,
+                ),
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  /// PIXEL STYLE INPUT
+  Widget _pixelField(
+    String label,
+    TextEditingController controller, {
+    bool obscure = false,
+  }) {
+    return TextField(
+      controller: controller,
+      obscureText: obscure,
+      style: const TextStyle(
+        fontFamily: 'PixelFont',
+        color: Colors.white,
+      ),
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(
+          fontFamily: 'PixelFont',
+          color: Colors.white70,
+        ),
+        filled: true,
+        fillColor: const Color(0xFF5A2DAA),
+        enabledBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.white),
+          borderRadius: BorderRadius.circular(0),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.cyanAccent),
+          borderRadius: BorderRadius.circular(0),
         ),
       ),
     );
