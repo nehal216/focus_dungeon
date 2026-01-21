@@ -17,11 +17,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
         elevation: 0,
         title: const Text(
           "PLAYER PROFILE",
-          style: TextStyle(fontFamily: 'PixelFont'),
+          style: TextStyle(fontFamily: 'VT323',
+          fontSize: 22,
+          letterSpacing: 1.5,
+          ),
         ),
         centerTitle: true,
       ),
@@ -77,7 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Text(
             title,
             style: const TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
+              fontSize: 20,
+              letterSpacing: 1.5,
               color: Colors.white70,
             ),
           ),
@@ -87,7 +92,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: Text(
                 value,
                 style: const TextStyle(
-                  fontFamily: 'PixelFont',
+                  fontFamily: 'VT323',
+                  fontSize: 20,
+                  letterSpacing: 1.5,
                   color: Color(0xFF4DEEFF),
                   fontWeight: FontWeight.bold,
                   decoration: TextDecoration.underline,
@@ -98,7 +105,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Text(
               value,
               style: const TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
+                fontSize: 20,
+                letterSpacing: 1.5,
                 color: Color(0xFF4DEEFF),
                 fontWeight: FontWeight.bold,
               ),
@@ -117,18 +126,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        backgroundColor: const Color(0xFF0B0E1A),
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+          side: const BorderSide(color: Colors.white, width: 3),
+        ),
         title: Text(
           "EDIT $fieldName",
-          style: const TextStyle(fontFamily: 'PixelFont'),
+          style: const TextStyle(fontFamily: 'VT323',fontSize:20,color: Colors.white),
         ),
         content: TextField(
           controller: controller,
-          style: const TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+          style: const TextStyle(fontFamily: 'VT323', color: Colors.white),
           decoration: InputDecoration(
             hintText: fieldName,
             hintStyle: const TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
               color: Colors.white70,
             ),
             filled: true,
@@ -155,7 +168,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: const Text(
               "CANCEL",
               style: TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
+                fontSize: 20,
+                letterSpacing: 1.5,
                 color: Colors.white,
               ),
             ),
@@ -174,7 +189,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: const Text(
               "SAVE",
               style: TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
+                fontSize: 20,
+                letterSpacing: 1.5,
                 color: Colors.white,
               ),
             ),
@@ -184,3 +201,4 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
+

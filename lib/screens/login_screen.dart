@@ -35,12 +35,15 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
         elevation: 0,
         automaticallyImplyLeading: false,
         title: const Text(
           "LOGIN",
-          style: TextStyle(fontFamily: 'PixelFont'),
+          style: TextStyle(fontFamily: 'VT323',
+          fontSize: 22,
+          letterSpacing: 1.5,
+          ),
         ),
         centerTitle: true,
       ),
@@ -102,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       SnackBar(
                         content: Text(
                           e.toString(),
-                          style: const TextStyle(fontFamily: 'PixelFont'),
+                          style: const TextStyle(fontFamily: 'VT323'),
                         ),
                       ),
                     );
@@ -111,7 +114,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: const Text(
                   "LOGIN",
                   style: TextStyle(
-                    fontFamily: 'PixelFont',
+                    fontFamily: 'VT323',
+                    fontSize: 20,
                     color: Colors.white,
                     letterSpacing: 1.5,
                   ),
@@ -129,33 +133,43 @@ class _LoginScreenState extends State<LoginScreen> {
                 showDialog(
                   context: context,
                   builder: (_) => AlertDialog(
-                    backgroundColor: const Color(0xFF0B0E1A),
+                    backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                        side: const BorderSide(color: Colors.white, width: 3),
+                      ),
                     title: const Text(
                       "RESET PASSWORD",
-                      style: TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+                      style: TextStyle(fontFamily: 'VT323',
+                      fontSize: 20,
+                      letterSpacing: 1.5,
+                       color: Colors.white
+                       ),
                     ),
                     content: TextField(
                       controller: resetController,
-                      style: const TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+                      style: const TextStyle(fontFamily: 'VT323', color: Colors.white),
                       decoration: InputDecoration(
                         labelText: "EMAIL",
                         labelStyle: const TextStyle(
-                          fontFamily: 'PixelFont',
+                          fontFamily: 'VT323',
+                          fontSize: 18,
+                          letterSpacing: 1.5,
                           color: Colors.white70,
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
-                            color: Color(0xFF7B4DFF),
-                            width: 5,
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            width: 3,
                           ),
                           borderRadius: BorderRadius.circular(0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                             color: Color(0xFF4DEEFF),
-                            width: 5,
+                            width: 3,
                           ),
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: BorderRadius.circular(0),
                         ),
                       ),
                     ),
@@ -173,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               content: Text(
                                 "Reset link sent",
                                 style:
-                                    TextStyle(fontFamily: 'PixelFont'),
+                                    TextStyle(fontFamily: 'VT323'),
                               ),
                             ),
                           );
@@ -181,7 +195,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: const Text(
                           "SEND",
                           style: TextStyle(
-                            fontFamily: 'PixelFont',
+                            fontFamily: 'VT323',
+                            fontSize: 20,
+                            letterSpacing: 1.5,
                             color: Colors.white,
                           ),
                         ),
@@ -193,7 +209,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text(
                 "Forgot Password?",
                 style: TextStyle(
-                  fontFamily: 'PixelFont',
+                  fontFamily: 'VT323',
+                  fontSize: 20,
+                  letterSpacing: 1.5,
                   color: Colors.white,
                 ),
               ),
@@ -212,7 +230,9 @@ class _LoginScreenState extends State<LoginScreen> {
               child: const Text(
                 "Don't have an account? Sign up",
                 style: TextStyle(
-                  fontFamily: 'PixelFont',
+                  fontFamily: 'VT323',
+                  fontSize: 20,
+                  letterSpacing: 1.5,
                   color: Colors.white,
                 ),
               ),
@@ -236,13 +256,13 @@ class _LoginScreenState extends State<LoginScreen> {
       controller: controller,
       obscureText: obscure,
       style: const TextStyle(
-        fontFamily: 'PixelFont',
+        fontFamily: 'VT323',
         color: Colors.white,
       ),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(
-          fontFamily: 'PixelFont',
+          fontFamily: 'VT323',
           color: Colors.white70,
         ),
         filled: true,
@@ -274,3 +294,4 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 }
+

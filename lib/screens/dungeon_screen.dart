@@ -112,15 +112,24 @@ class _DungeonScreenState extends State<DungeonScreen> {
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
-        backgroundColor: const Color(0xFF0B0E1A),
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0),
+          side: const BorderSide(color: Colors.white, width: 3),
+        ),
         title: const Text(
           "DUNGEON CLEARED!",
-          style: TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+          style: TextStyle(fontFamily: 'VT323', 
+          fontSize: 22,
+          letterSpacing: 1.5,
+          color: Colors.white),
         ),
         content: Text(
           "You earned ${widget.xpReward} XP\nand ${widget.coinReward} Coins!",
           style: const TextStyle(
-            fontFamily: 'PixelFont',
+            fontFamily: 'VT323',
+            fontSize: 20,
+            letterSpacing: 1.5,
             color: Colors.white70,
           ),
         ),
@@ -133,7 +142,9 @@ class _DungeonScreenState extends State<DungeonScreen> {
             child: const Text(
               "RETURN",
               style: TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
+                fontSize: 20,
+                letterSpacing: 1.5,
                 color: Colors.white,
               ),
             ),
@@ -158,7 +169,7 @@ class _DungeonScreenState extends State<DungeonScreen> {
         elevation: 0,
         title: Text(
           widget.dungeonName,
-          style: const TextStyle(fontFamily: 'PixelFont'),
+          style: const TextStyle(fontFamily: 'VT323'),
         ),
         centerTitle: true,
       ),
@@ -170,9 +181,9 @@ class _DungeonScreenState extends State<DungeonScreen> {
             const Text(
               "TIME REMAINING",
               style: TextStyle(
-                fontFamily: 'PixelFont',
-                fontSize: 14,
-                color: Colors.white70,
+                fontFamily: 'VT323',
+                fontSize: 18,
+                color: Color.fromARGB(255, 255, 255, 255),
               ),
             ),
             const SizedBox(height: 20),
@@ -180,8 +191,8 @@ class _DungeonScreenState extends State<DungeonScreen> {
             Text(
               formatTime(secondsLeft),
               style: const TextStyle(
-                fontFamily: 'PixelFont',
-                fontSize: 72,
+                fontFamily: 'VT323',
+                fontSize: 80,
                 color: Color(0xFF4DEEFF),
                 letterSpacing: 2,
               ),
@@ -204,9 +215,10 @@ class _DungeonScreenState extends State<DungeonScreen> {
                   child: const Text(
                     "START SESSION",
                     style: TextStyle(
-                      fontFamily: 'PixelFont',
-                      color: Colors.white,
+                      fontFamily: 'VT323',
+                      fontSize: 20,
                       letterSpacing: 1.5,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -222,12 +234,16 @@ class _DungeonScreenState extends State<DungeonScreen> {
                       onPressed: isPaused ? resumeDungeon : pauseDungeon,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.orange,
-                        side: const BorderSide(color: Colors.white, width: 2),
-                      ),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                        shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),),
                       child: Text(
                         isPaused ? "RESUME" : "PAUSE",
                         style: const TextStyle(
-                          fontFamily: 'PixelFont',
+                          fontFamily: 'VT323',
+                          fontSize: 20,
+                          letterSpacing: 1.5,
                           color: Colors.white,
                         ),
                       ),
@@ -241,12 +257,17 @@ class _DungeonScreenState extends State<DungeonScreen> {
                       onPressed: stopDungeon,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.redAccent,
-                        side: const BorderSide(color: Colors.white, width: 2),
+                        side: const BorderSide(color: Colors.white, width: 3),
+                        shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ),
                       ),
                       child: const Text(
                         "STOP",
                         style: TextStyle(
-                          fontFamily: 'PixelFont',
+                          fontFamily: 'VT323',
+                          fontSize: 20,
+                          letterSpacing: 1.5,
                           color: Colors.white,
                         ),
                       ),
@@ -260,3 +281,4 @@ class _DungeonScreenState extends State<DungeonScreen> {
     );
   }
 }
+

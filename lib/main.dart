@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color(0xFF0B0E1A),
 
         /// GLOBAL FONT
-        fontFamily: 'PixelFont',
+        fontFamily: 'VT323',
 
         /// APP BAR THEME
         appBarTheme: const AppBarTheme(
@@ -34,8 +34,8 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           centerTitle: true,
           titleTextStyle: TextStyle(
-            fontFamily: 'PixelFont',
-            fontSize: 14,
+            fontFamily: 'VT323',
+            fontSize: 16,
             color: Colors.white,
           ),
         ),
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
         /// INPUT FIELDS (Login / Signup)
         inputDecorationTheme: const InputDecorationTheme(
           labelStyle: TextStyle(
-            fontFamily: 'PixelFont',
+            fontFamily: 'VT323',
             color: Colors.grey,
           ),
           enabledBorder: OutlineInputBorder(
@@ -60,8 +60,8 @@ class MyApp extends StatelessWidget {
             backgroundColor: const Color(0xFF7B4DFF),
             foregroundColor: Colors.white,
             textStyle: const TextStyle(
-              fontFamily: 'PixelFont',
-              fontSize: 12,
+              fontFamily: 'VT323',
+              fontSize: 14,
               letterSpacing: 1.2,
             ),
             padding: const EdgeInsets.symmetric(vertical: 14),
@@ -71,7 +71,7 @@ class MyApp extends StatelessWidget {
         /// TEXT DEFAULTS
         textTheme: const TextTheme(
           bodyMedium: TextStyle(
-            fontFamily: 'PixelFont',
+            fontFamily: 'VT323',
             color: Colors.white,
           ),
         ),
@@ -81,3 +81,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+

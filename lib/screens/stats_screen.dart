@@ -12,11 +12,15 @@ class StatsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
         elevation: 0,
         title: const Text(
           "PLAYER STATS",
-          style: TextStyle(fontFamily: 'PixelFont'),
+          style: TextStyle(
+            fontFamily: 'VT323',
+            fontSize: 22,
+            letterSpacing: 1.5,
+          ),
         ),
         centerTitle: true,
       ),
@@ -70,14 +74,18 @@ class StatsScreen extends StatelessWidget {
           Text(
             title,
             style: const TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
+              fontSize: 20,
+              letterSpacing: 1.5,
               color: Colors.white70,
             ),
           ),
           Text(
             value,
             style: const TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
+              fontSize: 20,
+              letterSpacing: 1.5,
               color: Color(0xFF4DEEFF),
               fontWeight: FontWeight.bold,
             ),
@@ -87,3 +95,4 @@ class StatsScreen extends StatelessWidget {
     );
   }
 }
+

@@ -35,8 +35,8 @@ class PixelButton extends StatelessWidget {
         child: Text(
           text,
           style: TextStyle(
-            fontFamily: 'PixelFont',
-            fontSize: 14,
+            fontFamily: 'VT323',
+            fontSize: 16,
             letterSpacing: 1.5,
             color: textColor,
           ),
@@ -45,3 +45,4 @@ class PixelButton extends StatelessWidget {
     );
   }
 }
+

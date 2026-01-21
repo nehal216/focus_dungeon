@@ -13,11 +13,14 @@ class SignupScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
         elevation: 0,
         title: const Text(
-          "CREATE ACCOUNT",
-          style: TextStyle(fontFamily: 'PixelFont'),
+          "LOGIN",
+          style: TextStyle(fontFamily: 'VT323',
+          fontSize: 22,
+          letterSpacing: 1.5,
+          ),
         ),
         centerTitle: true,
       ),
@@ -72,7 +75,7 @@ class SignupScreen extends StatelessWidget {
                       SnackBar(
                         content: Text(
                           e.toString(),
-                          style: const TextStyle(fontFamily: 'PixelFont'),
+                          style: const TextStyle(fontFamily: 'VT323'),
                         ),
                       ),
                     );
@@ -81,7 +84,8 @@ class SignupScreen extends StatelessWidget {
                 child: const Text(
                   "CREATE ACCOUNT",
                   style: TextStyle(
-                    fontFamily: 'PixelFont',
+                    fontFamily: 'VT323',
+                    fontSize: 20,
                     color: Colors.white,
                     letterSpacing: 1.5,
                   ),
@@ -105,13 +109,13 @@ class SignupScreen extends StatelessWidget {
       controller: controller,
       obscureText: obscure,
       style: const TextStyle(
-        fontFamily: 'PixelFont',
+        fontFamily: 'VT323',
         color: Colors.white,
       ),
       decoration: InputDecoration(
         labelText: label,
         labelStyle: const TextStyle(
-          fontFamily: 'PixelFont',
+          fontFamily: 'VT323',
           color: Colors.white70,
         ),
         filled: true,
@@ -134,3 +138,4 @@ class SignupScreen extends StatelessWidget {
     );
   }
 }
+

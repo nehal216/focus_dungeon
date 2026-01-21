@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
+        backgroundColor: const Color.fromARGB(255, 68, 5, 102),
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.menu),
@@ -58,7 +58,8 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(
           "FOCUS DUNGEON",
           style: TextStyle(
-            fontFamily: 'PixelFont',
+            fontFamily: 'VT323',
+            fontSize: 22,
             letterSpacing: 2,
           ),
         ),
@@ -75,8 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               "WELCOME BACK, ${(data['username'] ?? 'PLAYER').toUpperCase()}",
               style: const TextStyle(
-                fontFamily: 'PixelFont',
-                fontSize: 20,
+                fontFamily: 'VT323',
+                fontSize: 26,
                 letterSpacing: 1.5,
                 color: Colors.white,
               ),
@@ -98,9 +99,9 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 20),
 
             /// DUNGEONS
-            _pixelButton("🟢 EASY DUNGEON", () => _startDungeon(60, 10, 5)),
-            _pixelButton("🟡 MEDIUM DUNGEON", () => _startDungeon(180, 25, 15)),
-            _pixelButton("🔴 HARD DUNGEON", () => _startDungeon(300, 50, 30)),
+            _pixelButton("ENTER EASY DUNGEON", () => _startDungeon(60, 10, 5)),
+            _pixelButton("ENTER MEDIUM DUNGEON", () => _startDungeon(180, 25, 15)),
+            _pixelButton("ENTER HARD DUNGEON", () => _startDungeon(300, 50, 30)),
             _customSessionButton(),
           ],
         ),
@@ -126,15 +127,15 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(
               emoji,
-              style: const TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 22),
             ),
             const SizedBox(height: 4),
             Text(
               value,
               style: const TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
                 color: Color(0xFF4DEEFF),
-                fontSize: 14,
+                fontSize: 18,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -142,9 +143,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               label,
               style: const TextStyle(
-                fontFamily: 'PixelFont',
-                color: Colors.white70,
-                fontSize: 9,
+                fontFamily: 'VT323',
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontSize: 14,
+                fontWeight: FontWeight.bold
               ),
             ),
           ],
@@ -153,7 +155,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// PIXEL STYLE BUTTON
+  /// -------------------------PIXEL STYLE BUTTONS-------------------------------------------------
+  
   /// Builds a reusable pixel-styled button with consistent theming
   Widget _pixelButton(String text, VoidCallback onTap) {
     return Container(
@@ -173,7 +176,8 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Text(
             text,
             style: const TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
+              fontSize: 24,
               color: Colors.white,
               letterSpacing: 1.5,
             ),
@@ -183,12 +187,13 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  /// CUSTOM SESSION BUTTON
+  ///--------------------------- CUSTOM SESSION BUTTON-------------------------------
+
   /// Opens a dialog to create a custom focus session
   Widget _customSessionButton() {
     final controller = TextEditingController();
 
-    return _pixelButton("⚡ CUSTOM SESSION", () {
+    return _pixelButton("CREATE CUSTOM DUNGEON", () {
       showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -197,16 +202,21 @@ class _HomeScreenState extends State<HomeScreen> {
             borderRadius: BorderRadius.circular(0),
             side: const BorderSide(color: Colors.white, width: 3),
           ),
-          title: const Text("CUSTOM SESSION",
-              style: TextStyle(fontFamily: 'PixelFont',color: Colors.white)),
+          title: const Text("CUSTOM DUNGEON",
+              style: TextStyle(fontFamily: 'VT323',
+              fontSize:22,
+              letterSpacing: 1.5,
+              color:  Colors.white)
+              ),
           content: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
-            style: const TextStyle(fontFamily: 'PixelFont', color: Colors.white),
+            style: const TextStyle(fontFamily: 'VT323', color: Colors.white),
             decoration: InputDecoration(
               hintText: "Minutes",
               hintStyle: const TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
+                letterSpacing: 1.5,
                 color: Colors.white70,
               ),
               filled: true,
@@ -233,7 +243,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text(
                 "CANCEL",
                 style: TextStyle(
-                  fontFamily: 'PixelFont',
+                  fontFamily: 'VT323',
+                  fontSize: 22,
+                  letterSpacing: 1.5,
                   color: Colors.white,
                 ),
               ),
@@ -260,7 +272,9 @@ class _HomeScreenState extends State<HomeScreen> {
               child: const Text(
                 "START",
                 style: TextStyle(
-                  fontFamily: 'PixelFont',
+                  fontFamily: 'VT323',
+                  fontSize: 22,
+                  letterSpacing: 1.5,
                   color: Colors.white,
                 ),
               ),
@@ -287,7 +301,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Text(
             "PROFILE",
             style: TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
+              fontSize: 22,
+              letterSpacing: 1.5,
               color: Colors.white,
             ),
           ),
@@ -303,7 +319,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Text(
             "VIEW STATS",
             style: TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
+              fontSize: 22,
+              letterSpacing: 1.5,
               color: Colors.white,
             ),
           ),
@@ -320,7 +338,9 @@ class _HomeScreenState extends State<HomeScreen> {
           child: const Text(
             "LOG OUT",
             style: TextStyle(
-              fontFamily: 'PixelFont',
+              fontFamily: 'VT323',
+              fontSize: 22,
+              letterSpacing: 1.5,
               color: Colors.red,
             ),
           ),
@@ -357,8 +377,9 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text(
           "Are you sure you want to log out?",
           style: TextStyle(
-            fontSize:16,
-            fontFamily: 'PixelFont',
+            fontSize:20,
+            fontFamily: 'VT323',
+            letterSpacing: 1.5,
             color: Colors.white,
           ),
         ),
@@ -368,7 +389,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Text(
               "CANCEL",
               style: TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
+                fontSize: 20,
+                letterSpacing: 1.5,
                 color: Colors.white,
               ),
             ),
@@ -385,7 +408,9 @@ class _HomeScreenState extends State<HomeScreen> {
             child: const Text(
               "LOG OUT",
               style: TextStyle(
-                fontFamily: 'PixelFont',
+                fontFamily: 'VT323',
+                fontSize: 20,
+                letterSpacing: 1.5,
                 color: Colors.red,
               ),
             ),
@@ -395,3 +420,4 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+

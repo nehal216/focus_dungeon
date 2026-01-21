@@ -84,3 +84,4 @@ class DefaultFirebaseOptions {
     storageBucket: 'focusdungeon.firebasestorage.app',
   );
 }
+

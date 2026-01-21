@@ -25,3 +25,4 @@ class FirestoreService {
     return await _db.collection('users').doc(uid).get();
   }
 }
+
