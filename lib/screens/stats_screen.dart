@@ -45,7 +45,6 @@ class StatsScreen extends StatelessWidget {
                   _statRow("LEVEL", data['level'].toString()),
                   _statRow("XP", data['xp'].toString()),
                   _statRow("COINS", data['coins'].toString()),
-                  _statRow("STREAK", data['streak'].toString()),
                   _statRow("TOTAL FOCUS TIME", "${data['totalFocusTime']} mins"),
                   _statRow("SESSIONS COMPLETED", data['totalSessions'].toString()),
                 ],

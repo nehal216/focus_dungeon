@@ -89,7 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _statIcon("🔥", "${data['streak'] ?? 0}", "STREAK"),
                 _statIcon("🪙", "${data['coins'] ?? 0}", "COINS"),
                 _statIcon("⭐", "${data['xp'] ?? 0}", "XP"),
                 _statIcon("🎖️", "${data['level'] ?? 1}", "LEVEL"),

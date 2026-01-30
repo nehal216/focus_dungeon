@@ -183,6 +183,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   .update({fieldKey: controller.text});
 
               if (!context.mounted) return;
+              // ignore: use_build_context_synchronously
               Navigator.pop(context);
               setState(() {});
             },

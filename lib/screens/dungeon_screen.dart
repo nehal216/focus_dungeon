@@ -27,6 +27,72 @@ class _DungeonScreenState extends State<DungeonScreen> {
   bool isRunning = false;
   bool isPaused = false;
 
+  Future<bool> _onBackPressed() async {
+  if (!isRunning) {
+    return true; // allow back if timer not running
+  }
+
+  final shouldExit = await showDialog<bool>(
+    context: context,
+    barrierDismissible: false,
+    builder: (_) => AlertDialog(
+      backgroundColor: const Color(0xFF440566),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+        side: const BorderSide(color: Colors.white, width: 3),
+      ),
+      title: const Text(
+        "QUIT SESSION?",
+        style: TextStyle(
+          fontFamily: 'VT323',
+          fontSize: 22,
+          color: Colors.white,
+        ),
+      ),
+      content: const Text(
+        "Your progress will be lost!",
+        style: TextStyle(
+          fontFamily: 'VT323',
+          fontSize: 20,
+          color: Color.fromARGB(255, 255, 255, 255),
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context, false),
+          child: const Text(
+            "CANCEL",
+            style: TextStyle(
+              fontFamily: 'VT323', 
+              color: Colors.white,
+              fontSize: 20,
+              letterSpacing: 1.5
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () {
+            timer?.cancel();
+            Navigator.pop(context, true);
+          },
+          child: const Text(
+            "EXIT",
+            style: TextStyle(
+              fontFamily: 'VT323', 
+              color: Colors.red,
+              fontSize: 20,
+              letterSpacing: 1.5
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+
+  return shouldExit ?? false;
+}
+
+
   @override
   void initState() {
     super.initState();
@@ -162,7 +228,10 @@ class _DungeonScreenState extends State<DungeonScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    // ignore: deprecated_member_use
+    return WillPopScope(
+      onWillPop: _onBackPressed,
+      child: Scaffold(
       backgroundColor: const Color(0xFF6F2DBD),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -275,7 +344,8 @@ class _DungeonScreenState extends State<DungeonScreen> {
                   ),
                 ],
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );
