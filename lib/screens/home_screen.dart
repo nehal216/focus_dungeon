@@ -25,6 +25,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> fetchUserData() async {
+    
     final doc = await FirebaseFirestore.instance
         .collection('users')
         .doc(user!.uid)

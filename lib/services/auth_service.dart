@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -23,6 +24,15 @@ class AuthService {
         email: email,
         password: password,
       );
+      final user = FirebaseAuth.instance.currentUser!;
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid)
+            .set({
+              "email": user.email,
+            }, SetOptions(merge: true));
+
       return result.user;
     } catch (e) {
       rethrow;

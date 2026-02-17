@@ -143,8 +143,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontFamily: 'VT323',
                       fontSize: 20,
                       letterSpacing: 1.5,
-                       color: Colors.white
-                       ),
+                      color: Colors.white
+                      ),
                     ),
                     content: TextField(
                       controller: resetController,
