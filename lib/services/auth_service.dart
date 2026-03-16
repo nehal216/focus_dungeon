@@ -9,7 +9,7 @@ class AuthService {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
         email: email,
-        password: password,
+        password: password
       );
       return result.user;
     } catch (e) {
