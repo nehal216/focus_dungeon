@@ -137,10 +137,13 @@ class _DungeonScreenState extends State<DungeonScreen> {
     });
   }
 
-  void stopDungeon() {
+  void stopDungeon() async {
+  final shouldExit = await _onBackPressed();
+  if (shouldExit) {
     timer?.cancel();
-    Navigator.pop(context);
+    if (mounted) Navigator.pop(context);
   }
+}
 
   Future<void> completeDungeon() async {
     final user = FirebaseAuth.instance.currentUser;

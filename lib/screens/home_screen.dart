@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
             /// HEADER
             Text(
-              "WELCOME BACK, ${(data['username'] ?? 'PLAYER').toUpperCase()}",
+              "WELCOME BACK, ${(data['username'] ?? 'PLAYER').toUpperCase()}!",
               style: const TextStyle(
                 fontFamily: 'VT323',
                 fontSize: 26,
@@ -267,7 +267,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       coinReward: minutes,
                     ),
                   ),
-                );
+                ).then((_) => fetchUserData());
               },
               child: const Text(
                 "START",
@@ -311,7 +311,7 @@ class _HomeScreenState extends State<HomeScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const ProfileScreen()),
-            );
+            ).then((_) => fetchUserData());
           },
         ),
         const PopupMenuDivider(height: 8),
@@ -360,7 +360,7 @@ class _HomeScreenState extends State<HomeScreen> {
           coinReward: coins,
         ),
       ),
-    );
+    ).then((_) => fetchUserData());
   }
 
   /// LOGOUT CONFIRMATION
