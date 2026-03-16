@@ -90,9 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                _statIcon("🪙", "${data['coins'] ?? 0}", "COINS"),
-                _statIcon("⭐", "${data['xp'] ?? 0}", "XP"),
-                _statIcon("🎖️", "${data['level'] ?? 1}", "LEVEL"),
+                // AFTER
+                _statIcon(Icons.monetization_on, "${data['coins'] ?? 0}", "COINS"),
+                _statIcon(Icons.star, "${data['xp'] ?? 0}", "XP"),
+                _statIcon(Icons.military_tech, "${data['level'] ?? 1}", "LEVEL"),
               ],
             ),
 
@@ -113,7 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   /// STAT ICON WIDGET
   /// Displays a stat with icon, value and label in a pixel-styled box
-  Widget _statIcon(String emoji, String value, String label) {
+  Widget _statIcon(IconData icon, String value, String label) {
     return Expanded(
       child: Container(
         padding: const EdgeInsets.all(10),
@@ -125,9 +126,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         child: Column(
           children: [
-            Text(
-              emoji,
-              style: const TextStyle(fontSize: 22),
+            Icon(
+            icon,
+            color: const Color(0xFFFFD700), // matches your cyan accent
+            size: 22,
             ),
             const SizedBox(height: 4),
             Text(

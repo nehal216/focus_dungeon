@@ -49,6 +49,32 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   _profileRow("EMAIL", data['email'] ?? "Not set", false),
                   _profileRow("USERNAME", data['username'] ?? "Not set", true, user.uid),
                   _profileRow("PHONE", data['phone'] ?? "Not set", true, user.uid),
+                  const SizedBox(height: 20),
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red.shade900,
+                      side: const BorderSide(color: Colors.red, width: 3),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                    ),
+                    onPressed: () => _deleteAccount(context, user.uid),
+                    child: const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 14),
+                      child: Text(
+                        "DELETE ACCOUNT",
+                        style: TextStyle(
+                          fontFamily: 'VT323',
+                          fontSize: 22,
+                          letterSpacing: 1.5,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
                 ],
               ),
             ),
@@ -201,10 +227,90 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
-}
+  void _deleteAccount(BuildContext context, String uid) {
+  showDialog(
+    context: context,
+    builder: (_) => AlertDialog(
+      backgroundColor: const Color(0xFF440566),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.zero,
+        side: const BorderSide(color: Colors.white, width: 3),
+      ),
+      title: const Text(
+        "DELETE ACCOUNT?",
+        style: TextStyle(
+          fontFamily: 'VT323',
+          fontSize: 22,
+          letterSpacing: 1.5,
+          color: Colors.white,
+        ),
+      ),
+      content: const Text(
+        "This will permanently delete your account and all data. This cannot be undone!",
+        style: TextStyle(
+          fontFamily: 'VT323',
+          fontSize: 18,
+          color: Colors.white70,
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.pop(context),
+          child: const Text(
+            "CANCEL",
+            style: TextStyle(
+              fontFamily: 'VT323',
+              fontSize: 20,
+              letterSpacing: 1.5,
+              color: Colors.white,
+            ),
+          ),
+        ),
+        TextButton(
+          onPressed: () async {
+            try {
+              // delete firestore data first
+              await FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(uid)
+                  .delete();
 
-// FutureBuilder(
-//   future: FirebaseFirestore.instance
-//       .collection('users')
-//       .doc(user!.uid)
-//       .get(),
+              // then delete auth account
+              await FirebaseAuth.instance.currentUser!.delete();
+
+              if (!context.mounted) return;
+              // pop dialog + profile screen, go to login
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/',
+                (route) => false,
+              );
+            } catch (e) {
+              Navigator.pop(context);
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    e.toString().contains('requires-recent-login')
+                        ? "Please log out and log back in before deleting."
+                        : e.toString(),
+                    style: const TextStyle(fontFamily: 'VT323'),
+                  ),
+                ),
+              );
+            }
+          },
+          child: const Text(
+            "DELETE",
+            style: TextStyle(
+              fontFamily: 'VT323',
+              fontSize: 20,
+              letterSpacing: 1.5,
+              color: Colors.red,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+}
