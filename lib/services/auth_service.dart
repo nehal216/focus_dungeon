@@ -1,6 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class AuthService {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -18,31 +16,28 @@ class AuthService {
   }
 
   // Login
-  Future<User?> login(String email, String password) async {
+  Future<void> login(String email, String password) async {
     try {
-      UserCredential result = await _auth.signInWithEmailAndPassword(
+      await _auth.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
-      final user = FirebaseAuth.instance.currentUser!;
-
-        await FirebaseFirestore.instance
-            .collection('users')
-            .doc(user.uid)
-            .set({
-              "email": user.email,
-            }, SetOptions(merge: true));
-
-      return result.user;
+    } on FirebaseAuthException catch (e) {
+      throw Exception(e.code);
     } catch (e) {
-      rethrow;
+      throw "unknown-error";
     }
   }
 
   Future<void> resetPassword(String email) async {
-  await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-}
-
+    try {
+      await _auth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch (e) {
+      throw e.code;
+    } catch (e) {
+      throw "unknown-error";
+    }
+  }
 
   // Logout (for later)
   Future<void> logout() async {

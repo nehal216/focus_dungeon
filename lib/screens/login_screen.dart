@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../services/auth_service.dart';
 import 'signup_screen.dart';
@@ -101,10 +102,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     );
                   } catch (e) {
+                    // ignore: avoid_print
+                    print("ACTUAL ERROR: $e");
+                    String message = "Invalid email or password";
+
+                    if (e is FirebaseAuthException) {
+                      if (e.code == 'invalid-email') {
+                        message = "Invalid email format";
+                      } else if (e.code == 'too-many-requests') {
+                        message = "Too many attempts. Try later";
+                      } else {
+                        message = "Invalid email or password";
+                      }
+                    }
+
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                          e.toString(),
+                          message,
                           style: const TextStyle(fontFamily: 'VT323'),
                         ),
                       ),
