@@ -16,7 +16,7 @@ class SignupScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 68, 5, 102),
         elevation: 0,
         title: const Text(
-          "LOGIN",
+          "SIGN UP",
           style: TextStyle(fontFamily: 'VT323',
           fontSize: 22,
           letterSpacing: 1.5,
