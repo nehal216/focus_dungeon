@@ -1,4 +1,4 @@
-# ⚔️ Focus Dungeon
+# Focus Dungeon
 
 ### An RPG Productivity App
 
@@ -14,9 +14,9 @@ The goal is simple:
 
 ---
 
-## 🎮 Features
+## Features
 
-### 🔐 User Authentication
+### User Authentication
 
 * User registration with email and password
 * Secure login using Firebase Authentication
@@ -25,16 +25,16 @@ The goal is simple:
 * Account deletion
 * Firebase-based user identity management
 
-### ⚔️ Dungeon Focus Sessions
+### Dungeon Focus Sessions
 
 Users can choose from different dungeon difficulties and turn their focus time into a game session.
 
 | Dungeon           |  Duration |   XP Reward | Coin Reward |
 | ----------------- | --------: | ----------: | ----------: |
-| 🟢 Easy Dungeon   |  1 minute |       10 XP |     5 Coins |
-| 🟡 Medium Dungeon | 3 minutes |       25 XP |    15 Coins |
-| 🔴 Hard Dungeon   | 5 minutes |       50 XP |    30 Coins |
-| 🧙 Custom Dungeon |    Custom | 2 × minutes |  1 × minute |
+| Easy Dungeon   |  1 minute |       10 XP |     5 Coins |
+| Medium Dungeon | 3 minutes |       25 XP |    15 Coins |
+| Hard Dungeon   | 5 minutes |       50 XP |    30 Coins |
+| Custom Dungeon |    Custom | 2 × minutes |  1 × minute |
 
 The timer supports:
 
@@ -46,7 +46,7 @@ The timer supports:
 * Session completion rewards
 * Confirmation before abandoning an active session
 
-### ⭐ XP & Level System
+### XP & Level System
 
 Successful focus sessions reward users with XP.
 
@@ -58,13 +58,13 @@ Required XP = Current Level × 50
 
 the user's level increases and excess XP is carried forward.
 
-### 🪙 Coin Rewards
+### Coin Rewards
 
 Completed dungeon sessions reward Coins based on the selected dungeon.
 
 Coins are stored in Firestore and can be used as the foundation for future in-game reward and customization systems.
 
-### 👤 Player Profile
+### Player Profile
 
 The profile screen allows users to:
 
@@ -75,7 +75,7 @@ The profile screen allows users to:
 
 Email is read-only because it is linked to the Firebase Authentication account.
 
-### 📊 Player Statistics
+### Player Statistics
 
 The Stats screen displays:
 
@@ -87,7 +87,7 @@ The Stats screen displays:
 
 This provides users with a simple overview of their productivity progress.
 
-### 🎨 Pixel-Art Inspired UI
+### Pixel-Art Inspired UI
 
 The application uses a retro RPG-inspired interface featuring:
 
@@ -100,7 +100,7 @@ The application uses a retro RPG-inspired interface featuring:
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Technology                   | Purpose                                       |
 | ---------------------------- | --------------------------------------------- |
@@ -117,7 +117,7 @@ The project uses Flutter for the frontend and Firebase services for authenticati
 
 ---
 
-## 🏗️ Project Architecture
+## Project Architecture
 
 Focus Dungeon follows a modular screen-based architecture.
 
@@ -151,7 +151,7 @@ Each major screen is separated into its own Dart file, keeping the application m
 
 ---
 
-## 📱 Application Flow
+## Application Flow
 
 ```text
                     ┌──────────────┐
@@ -189,7 +189,7 @@ Each major screen is separated into its own Dart file, keeping the application m
 
 ---
 
-## 🔥 Firebase Integration
+## Firebase Integration
 
 Focus Dungeon uses **Firebase Authentication** for managing user accounts and **Cloud Firestore** for persistent user data.
 
@@ -225,7 +225,7 @@ The application initializes these values when a new account is created.
 
 ---
 
-## ⚡ Focus Timer
+## Focus Timer
 
 The dungeon timer is implemented using Dart's `Timer.periodic()`.
 
@@ -255,7 +255,7 @@ The timer is cancelled inside `dispose()` to prevent unnecessary background acti
 
 ---
 
-## 🔒 Atomic Reward Updates
+## Atomic Reward Updates
 
 Dungeon rewards are updated using a **Cloud Firestore transaction**.
 
@@ -295,7 +295,7 @@ This approach helps maintain data consistency when updating multiple user statis
 
 ---
 
-## 📂 Main Screens
+## Main Screens
 
 ### Login Screen
 
@@ -366,7 +366,7 @@ Displays:
 
 ---
 
-## 🧪 Testing
+## Testing
 
 The project was tested using multiple testing approaches:
 
@@ -382,7 +382,7 @@ The project report documents **12 functional test cases**, covering authenticati
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -454,7 +454,7 @@ flutter run
 
 ---
 
-## 🔐 Security Considerations
+## Security Considerations
 
 Because the application stores user accounts and productivity data, security is an important part of the system.
 
@@ -471,7 +471,7 @@ The project also identifies potential future security concerns such as client-si
 
 ---
 
-## 🧠 Development Model
+## Development Model
 
 Focus Dungeon was developed using an **Iterative and Incremental Development Model**.
 
@@ -499,13 +499,13 @@ This approach allowed individual features to be implemented and tested before in
 
 ---
 
-## 🔮 Future Scope
+## Future Scope
 
 Focus Dungeon can be expanded considerably in future versions.
 
 Possible improvements include:
 
-### 🎮 Advanced RPG Mechanics
+### Advanced RPG Mechanics
 
 * Multiple dungeon levels
 * Boss battles
@@ -516,7 +516,7 @@ Possible improvements include:
 * Cosmetic items
 * Character progression
 
-### 📊 Advanced Analytics
+### Advanced Analytics
 
 * Weekly productivity reports
 * Monthly productivity reports
@@ -524,7 +524,7 @@ Possible improvements include:
 * Productivity trends
 * Personalized insights
 
-### 👥 Social Features
+### Social Features
 
 * Friend leaderboards
 * Study groups
@@ -532,14 +532,14 @@ Possible improvements include:
 * Guilds
 * Cooperative dungeon runs
 
-### 🤖 Smart Productivity
+### Smart Productivity
 
 * AI-powered productivity suggestions
 * Smart scheduling
 * Personalized focus recommendations
 * Adaptive session difficulty
 
-### 📱 Additional Features
+### Additional Features
 
 * Offline focus sessions
 * Automatic cloud synchronization
@@ -555,7 +555,7 @@ These enhancements could evolve Focus Dungeon from a basic gamified timer into a
 
 ---
 
-## 📸 Screenshots
+## Screenshots
 
 Add your application screenshots here once you upload them to the repository.
 
@@ -584,7 +584,7 @@ A good GitHub README without screenshots is like an RPG character with no armor:
 
 ---
 
-## 📚 Project Documentation
+## Project Documentation
 
 The complete academic project report contains detailed information about:
 
@@ -604,7 +604,7 @@ The project was developed as a **Bachelor of Science in Information Technology**
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Nehal Santosh Anbhavne**
 
@@ -615,7 +615,7 @@ University of Mumbai
 
 ---
 
-## 📄 License
+## License
 
 This project was developed as an academic project.
 
