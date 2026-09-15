@@ -623,8 +623,8 @@ If you intend to reuse, modify, or distribute the source code, please add an app
 
 ---
 
-## ⭐ Support
+## Support
 
-If you find the project interesting, consider giving the repository a ⭐ on GitHub.
+If you find the project interesting, consider giving the repository a star on GitHub.
 
 Every star apparently makes the code work 3% better. This is not scientifically established, but GitHub culture demands we pretend.
